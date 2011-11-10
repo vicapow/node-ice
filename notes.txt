@@ -1,0 +1,7 @@
+
+
+a good reference on creating modules (include c++ addons):
+	http://howtonode.org/how-to-module
+	
+a good ICE reference:
+	http://doc.zeroc.com/display/Ice/Writing+an+Ice+Application+with+Python
