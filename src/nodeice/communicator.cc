@@ -7,21 +7,21 @@ namespace NodeIce{
 
 Handle<Value> Communicator::Initialize(const Arguments &args){
 	
-	cout << " IceInitializeHandler()" << endl;
+	//cout << " IceInitializeHandler()" << endl;
 	HandleScope scope;
 	
 	if(args.Length()!=1) return v8::ThrowException(v8::String::New("Invalid number of arguments"));
 	
 	// create the 'Communicator' class
-	Local<FunctionTemplate> communicator_ft = FunctionTemplate::New();
-	communicator_ft->SetClassName(String::NewSymbol("Communicator"));
-	communicator_ft->InstanceTemplate()->SetInternalFieldCount(1);//the instance template is what's returned with the function is called as a constructor
+	Local<FunctionTemplate> t = FunctionTemplate::New();
+	t->SetClassName(String::NewSymbol("Communicator"));
+	t->InstanceTemplate()->SetInternalFieldCount(1);//the instance template is what's returned with the function is called as a constructor
 	
-	// create the 'stringToProxy' function
-	Local<FunctionTemplate> stringToProxy_ft = FunctionTemplate::New(Communicator::StringToProxy);
-	communicator_ft->InstanceTemplate()->Set(String::NewSymbol("stringToProxy"),stringToProxy_ft->GetFunction());
-	Local<Function> communicator_f = communicator_ft->GetFunction();
-	Local<v8::Object> communicator_o = communicator_f->NewInstance();
+	
+	NODE_SET_PROTOTYPE_METHOD(t,"stringToProxy",Communicator::StringToProxy);
+	
+	// return an instance of a new communicator
+	Local<v8::Object> communicator_o = t->GetFunction()->NewInstance();
 	
 	Communicator* communicator = new Communicator();
 	

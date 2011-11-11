@@ -11,21 +11,22 @@ using namespace node;
 using namespace std;
 
 #include "communicator.h"
+#include "util.h"
 
 namespace NodeIce{
 	
 	void Initialize(Handle<v8::Object> target){
 		
 		HandleScope scope;
-		cout << "NodeIce::Initialize" << endl;
+		//cout << "NodeIce::Initialize" << endl;
 		
-		// just an example for now
-		target->Set( String::New("Communicator"), String::New("this is a string") );
-		
+		// so that calling ice.initalize() returns a communicator object
 		Local<FunctionTemplate> ice_initialize_template = FunctionTemplate::New(Communicator::Initialize);
-		target->Set( String::New("initialize"),ice_initialize_template->GetFunction());
-		// calling ice.initalize() returns a communicator object
+		NODE_SET_METHOD(target,"initialize",Communicator::Initialize);
 		
+		Handle<v8::Object> util_o = v8::Object::New();
+		Util::Intialize(util_o);
+		target->Set(String::NewSymbol("util"),util_o);
 	}
 }
 

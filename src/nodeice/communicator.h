@@ -26,13 +26,13 @@ namespace NodeIce{
 			Ice::CommunicatorPtr ic;
 			
 			Communicator() {
-				cout << "Communicator::Constructor" << endl;
+				//cout << "Communicator::Constructor" << endl;
 			}
 			
 			
 			
 			~Communicator(){
-				cout << "Communicator::Destructor" << endl;
+				//cout << "Communicator::Destructor" << endl;
 			}
 			
 			

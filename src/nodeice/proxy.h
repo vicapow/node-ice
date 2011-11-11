@@ -26,11 +26,15 @@ namespace NodeIce{
 		public:
 			
 			Proxy() {
-				cout << "Proxy::Constructor" << endl;
+				//cout << "Proxy::Constructor" << endl;
 			}
 			
 			~Proxy(){
-				cout << "Proxy::Destructor" << endl;
+				//cout << "Proxy::Destructor" << endl;
+			}
+			
+			void sayHello(){
+				cout << "Hello from proxy!" << endl;
 			}
 			
 			void setBase(Ice::ObjectPrx base){

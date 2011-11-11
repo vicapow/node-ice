@@ -5,7 +5,7 @@ namespace NodeIce{
 
 Handle<Value> Proxy::Initialize(const Arguments &args){
 
-	cout << "Communicator::StringToProxy" << endl;
+	//cout << "Communicator::StringToProxy" << endl;
 	HandleScope scope;
 
 	if(args.Length()!=1) return v8::ThrowException(v8::String::New("Invalid number of arguments"));

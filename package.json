@@ -1,33 +1,35 @@
-{ "name" : "node-ice"
-, "description" : "An ICE RPC implementation for node"
-, "keywords" : [ "node","ice","rpc" ]
-, "version" : "0.0.1"
-, "maintainers" : [
-	{
-		"name" : "Victor Powell"
-		, "email" : "vicapow@gmail.com"
-		, "web" : "http://victorp.me"
-		, "twitter" : "vicapow"
+{
+	"name": "ice"
+	, "description": "An ICE RPC implementation for node"
+	, "keywords": ["node", "ice", "rpc"]
+	, "version": "0.0.1"
+	, "maintainers": [{
+		"name": "Victor Powell"
+		, "email": "vicapow@gmail.com"
+		, "web": "http://victorp.me"
+		, "twitter": "vicapow"
+	}]
+	, "engines": { 
+		"node":  ">=0.5.10" 
 	}
-]
-, "licenses" : [
-	{
-		"type" : "MIT"
+	, "licenses": [{
+		"type": "MIT"
+	}]
+	, "preferGlobal": true
+	, "repository": {
+		"type": "git"
+		, "url": "http://github.com/vicapow/node-ice.git"
 	}
-]
-, "preferGlobal" : true
-, "repository" :
-  { "type" : "git"
-  , "url" : "https://github.com/vicapow/node-ice"
-  }
-, "bugs" :
-  { "email" : "vicapow@gmail.com"
-  , "url" : "http://github.com/vicapow/node-ice/issues"
-  }
-, "directories" : { 
-					"src" : "./src"
-					, "build" : "./build"
-                  }
-, "main" : "./build/Release/main.node"
-
+	, "bugs": {
+		"email": "vicapow@gmail.com"
+		, "url": "http://github.com/vicapow/node-ice/issues"
+	}
+	, "directories": {
+		"src": "./src"
+		, "build": "./build"
+	}
+	, "main": "./build/Release/main.node"
+	, "scripts": {
+		"preinstall": "node-waf clean || true; node-waf configure build"
+	}
 }
