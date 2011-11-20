@@ -23,27 +23,22 @@ namespace NodeIce{
 	class Communicator : ObjectWrap {
 		public:
 			
-			Ice::CommunicatorPtr ic;
-			
 			Communicator() {
-				//cout << "Communicator::Constructor" << endl;
+				cout << "Communicator::Constructor" << endl;
 			}
-			
-			
 			
 			~Communicator(){
-				//cout << "Communicator::Destructor" << endl;
+				cout << "Communicator::Destructor" << endl;
 			}
 			
+			static Handle<Value> Initialize(const Handle<v8::Object> target);
 			
+		protected:
+			Ice::CommunicatorPtr ic;
 			
-			/**
-			  * returns the communicator pointer given the provided ice arguments
-			  * for example: var communicator = nodeice.initialize("args...");
-			  */
-			static Handle<Value> Initialize(const Arguments &args);
-			
+			// member functions
 			static Handle<Value> StringToProxy(const Arguments &args);
+			static Handle<Value> New(const Arguments& args);
 	};
 }
 

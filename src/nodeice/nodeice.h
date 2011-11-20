@@ -11,22 +11,40 @@ using namespace node;
 using namespace std;
 
 #include "communicator.h"
-#include "util.h"
 
 namespace NodeIce{
+	
+	/**
+	  * helper function and also to conform to the specification already implemented 
+	  * across other ICE language bindings. ie, allows for the following:
+	  * var ic = ice.initialize("args");//returns a communicator object
+	  */
+	Handle<Value> InitializeCommunicator(const Arguments& args){
+		HandleScope scope;
+		Handle<v8::Object> self = args.This();
+		Handle<v8::Value> retval = self->Get(String::New("Communicator"));
+		if(!retval->IsFunction()){
+			return v8::ThrowException(v8::String::New("Node Ice: Communicator object not found on Ice object"));
+		}
+		Handle<v8::Function> communicator_f = Handle<v8::Function>::Cast(retval);
+		Handle<v8::Value>* _args = new Handle<v8::Value>[args.Length()];
+		for(int i = 0; i < args.Length();i++){
+			_args[i] = args[i];
+		}
+		Handle<v8::Object> communicator_o = communicator_f->NewInstance(args.Length(),_args);
+		return scope.Close(communicator_o);
+	}
 	
 	void Initialize(Handle<v8::Object> target){
 		
 		HandleScope scope;
-		//cout << "NodeIce::Initialize" << endl;
+		cout << "NodeIce::Initialize" << endl;
 		
-		// so that calling ice.initalize() returns a communicator object
-		Local<FunctionTemplate> ice_initialize_template = FunctionTemplate::New(Communicator::Initialize);
-		NODE_SET_METHOD(target,"initialize",Communicator::Initialize);
+		Proxy::Initialize(target);
+		Communicator::Initialize(target);
 		
-		Handle<v8::Object> util_o = v8::Object::New();
-		Util::Intialize(util_o);
-		target->Set(String::NewSymbol("util"),util_o);
+		
+  		NODE_SET_METHOD(target, "initialize", NodeIce::InitializeCommunicator);
 	}
 }
 

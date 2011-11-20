@@ -18,31 +18,27 @@ using namespace std;
 #include "communicator.h"
 
 namespace NodeIce{
-	class Proxy : ObjectWrap {
+
+/**
+  * a wrapper for the Ice Object Proxy (aka, ObjectPrx)
+  */
+class Proxy : ObjectWrap {
+	
+	public:
 		
-		protected:
-			Ice::ObjectPrx base;
+		Proxy(); // constructor
 		
-		public:
-			
-			Proxy() {
-				//cout << "Proxy::Constructor" << endl;
-			}
-			
-			~Proxy(){
-				//cout << "Proxy::Destructor" << endl;
-			}
-			
-			void sayHello(){
-				cout << "Hello from proxy!" << endl;
-			}
-			
-			void setBase(Ice::ObjectPrx base){
-				this->base = base;
-			}
-			
-			static Handle<Value> Initialize(const Arguments &args);
-	};
+		static Handle<Value> Initialize(const Handle<v8::Object> target);
+		
+	protected:
+		
+		// the ICE ObjectPrx object for more details, reference the ICE documentation
+		Ice::ObjectPrx base;
+		
+		// member functions
+		static Handle<Value> New(const Arguments& args);
+};
+	
 }
 
 

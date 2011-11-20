@@ -8,3 +8,8 @@ a good ICE reference:
 
 some notes on using npm:
 	to install a package locally go inside your project and run: npm install . -g
+	
+	
+some nice notes on ICE:
+	http://download.zeroc.com/Training/2.0/CPP_Slides.pdf
+	http://download.zeroc.com/Training/2.0/Java_Slides.pdf
