@@ -13,3 +13,6 @@ some notes on using npm:
 some nice notes on ICE:
 	http://download.zeroc.com/Training/2.0/CPP_Slides.pdf
 	http://download.zeroc.com/Training/2.0/Java_Slides.pdf
+	
+a good example of writing a c++ ICE server:
+	http://www.zeroc.com/doc/Ice-3.2b/manual/Hello.4.3.html
