@@ -43,7 +43,6 @@ namespace NodeIce{
 		Proxy::Initialize(target);
 		Communicator::Initialize(target);
 		
-		
   		NODE_SET_METHOD(target, "initialize", NodeIce::InitializeCommunicator);
 	}
 }

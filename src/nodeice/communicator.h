@@ -25,10 +25,13 @@ namespace NodeIce{
 			
 			Communicator() {
 				cout << "Communicator::Constructor" << endl;
+				ic = 0;
 			}
 			
 			~Communicator(){
 				cout << "Communicator::Destructor" << endl;
+				if(ic!==0) ic->destroy();
+				ic = 0;
 			}
 			
 			static Handle<Value> Initialize(const Handle<v8::Object> target);

@@ -25,6 +25,11 @@ Handle<Value> Communicator::Initialize(const Handle<v8::Object> target){
 	communicator_constructor = Persistent<FunctionTemplate>::New(t);
 	
 	t->InstanceTemplate()->SetInternalFieldCount(1);
+	
+	// give the communicator a 'private' reference to the ice module object.
+	// this is required if we want to allow Proxys to be created via the Communicator.
+	// see Communicator::StringToProxy for an example of this usage.
+	t->InstanceTemplate()->Set("__ice",target);
 	t->SetClassName(String::NewSymbol("Communicator"));
 	
 	// set methods
@@ -60,12 +65,27 @@ Handle<Value> Communicator::New(const Arguments& args) {
 }
 
 /**
-  * 
+  * take the string provided as the first argument and return a new Ice Proxy
   */
 Handle<Value> Communicator::StringToProxy(const Arguments &args){
 	HandleScope scope;
 	cout << "Communicator::StringToProxy" << endl;
-	//return scope.Close(Proxy::Initialize(args));
+	
+	if(args.Length()!=1) return v8::ThrowException(v8::String::New("Ice.Communicator: Invalid number of arguments"));
+	if(!args[0]->IsString()) return v8::ThrowException(v8::String::New("Ice.Communicator: Invalid argument 0. expected string"));
+	
+	Handle<v8::Object> ice_module = args.Holder()->Get(String::New("__ice"))->ToObject();
+	Handle<v8::Value> proxy_constructor_value = ice_module->Get(String::New("Proxy"));
+	Handle<v8::Function> proxy_constructor_func = Handle<Function>::Cast(proxy_constructor_value);
+	Handle<v8::Object> proxy_obj = proxy_constructor_func->NewInstance();
+	Proxy* proxy = ObjectWrap::Unwrap<Proxy>(proxy_obj);
+	
+	Handle<String> proxy_str = args[0]->ToString(); //proxy string to use
+	Communicator* c = ObjectWrap::Unwrap<Communicator>(args.Holder());
+	proxy->base = c->ic->stringToProxy(*String::Utf8Value(proxy_str));
+	cout << "argument 0: " << *String::Utf8Value(proxy_str) << endl;
+	
+	scope.Close(proxy_obj); // return the new proxy
 }
 
 

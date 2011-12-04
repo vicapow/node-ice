@@ -59,7 +59,7 @@ Handle<Value> Proxy::New(const Arguments& args) {
 	HandleScope scope;
 	Proxy *p = new Proxy();
 	p->Wrap(args.Holder());
-	return args.This();
+	return scope.Close(args.This());
 }
 
 

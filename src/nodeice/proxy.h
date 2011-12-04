@@ -30,10 +30,10 @@ class Proxy : ObjectWrap {
 		
 		static Handle<Value> Initialize(const Handle<v8::Object> target);
 		
-	protected:
-		
 		// the ICE ObjectPrx object for more details, reference the ICE documentation
 		Ice::ObjectPrx base;
+		
+	protected:
 		
 		// member functions
 		static Handle<Value> New(const Arguments& args);
